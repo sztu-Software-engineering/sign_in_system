@@ -1,4 +1,5 @@
 import requests
+from common.models import *
 def testGetCourse():
     url = 'http://127.0.0.1:8000/chooseCourseList/'
     token = 'c84d3f192585dc1979ae4725418bb750a5e7831c'
@@ -33,4 +34,13 @@ def testLogout():
 
     print(response.status_code)
     print(response.json())
-testLogout()
+
+
+
+signmsgs = Signmsg.objects.all().annotate(
+    courseid=F('eachcourseid__courseid'),
+    begintime=F('eachcourseid__begintime')
+)
+
+for signmsg in signmsgs:
+    print(signmsg.courseid, signmsg.begintime)

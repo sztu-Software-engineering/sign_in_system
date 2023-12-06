@@ -29,12 +29,12 @@ class Course(models.Model):
 
 
 class Signmsg(models.Model):
-    eachcourseid = models.ForeignKey('Signinmsg', models.DO_NOTHING, db_column='EachCourseID')  # Field name made lowercase.
-    studentid = models.OneToOneField('Student', models.DO_NOTHING, db_column='StudentID', primary_key=True)  # Field name made lowercase.
+    id=models.AutoField(primary_key=True)
+    eachcourseid = models.ForeignKey('Signinmsg', models.DO_NOTHING, db_column='EachCourseID',primary_key=False)  # Field name made lowercase.
+    studentid = models.OneToOneField('Student', models.DO_NOTHING, db_column='StudentID')  # Field name made lowercase.
     signinway = models.CharField(db_column='SignInWay', max_length=10)  # Field name made lowercase.
-
     class Meta:
-        managed = False
+        managed = True
         db_table = 'SignMsg'
 
 
@@ -64,7 +64,8 @@ class Signinmsg(models.Model):
     eachcourseid = models.CharField(db_column='EachCourseID', primary_key=True, max_length=10)  # Field name made lowercase.
     signinnum = models.IntegerField(db_column='SignInNum')  # Field name made lowercase.
     begintime = models.DateField(db_column='BeginTime', blank=True, null=True)  # Field name made lowercase.
+    signIncode=models.CharField(db_column='SignInCode',max_length=5)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'signInMsg'
