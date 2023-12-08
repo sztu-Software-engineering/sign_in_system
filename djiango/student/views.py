@@ -17,8 +17,10 @@ from rest_framework.permissions import IsAuthenticated
 from .serializers import *
 from common.models import *
 from django.db.models import Max
+from django.db.models import F
 from collections import defaultdict
 # Create your views here.
+#学生签到
 class studentSignup(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
@@ -57,5 +59,16 @@ class getStudentSignin(APIView):
     def get(self, request):
         courseid = request.GET.get('courseid')
         studentId=request.user.username
+        if Signmsg.objects.filter(eachcourseid__courseid=courseid,studentid=studentId).exists():
+            signmsgs = Signmsg.objects.filter(eachcourseid__courseid=courseid,studentid=studentId).annotate(
+                courseid=F('eachcourseid__courseid'),
+                begintime=F('eachcourseid__begintime')
+            )
+            data = [StudentSignInInfoSerializer({
+                'time': signmsg.begintime,
+                'state': 1
+            }).data for signmsg in signmsgs]
+            return Response({'status': 'success','data':data})
+
 
 

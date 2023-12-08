@@ -82,7 +82,7 @@ WSGI_APPLICATION = "djiango.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'signInDate',
+        'NAME': 'signdb1',
         'USER': 'root',
         'PASSWORD': '12345678',
         'HOST': 'localhost',

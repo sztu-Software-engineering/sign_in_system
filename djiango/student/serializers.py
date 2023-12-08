@@ -12,5 +12,5 @@ class studentSignupSerializer(serializers.Serializer):
         return value
 
 class StudentSignInInfoSerializer(serializers.Serializer):
-    time = serializers.CharField()
+    time = serializers.DateTimeField()
     state = serializers.IntegerField()

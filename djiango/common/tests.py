@@ -1,5 +1,5 @@
 import requests
-from common.models import *
+# from common.models import *
 def testGetCourse():
     url = 'http://127.0.0.1:8000/chooseCourseList/'
     token = 'c84d3f192585dc1979ae4725418bb750a5e7831c'
@@ -15,13 +15,13 @@ def testGetCourse():
 def testLogin():
     url = "http://127.0.0.1:8000/login/"
     response = requests.post(url, json={
-        "Authentication": 1,
+        "Authentication": 0,
         "password": "1",
-        "username": "fuck",
-        "usernumber": "1"
+        "username": "hsk",
+        "usernumber": "123456"
     })
     print(response.status_code)
-    print(response.json())  # If you expect a JSON response
+    print(response.json())# If you expect a JSON response
 def testLogout():
     url = 'http://127.0.0.1:8000/logout/'
     token = 'c84d3f192585dc1979ae4725418bb750a5e7831c'
@@ -37,10 +37,37 @@ def testLogout():
 
 
 
-signmsgs = Signmsg.objects.all().annotate(
-    courseid=F('eachcourseid__courseid'),
-    begintime=F('eachcourseid__begintime')
-)
-
-for signmsg in signmsgs:
-    print(signmsg.courseid, signmsg.begintime)
+# signmsgs = Signmsg.objects.all().annotate(
+#     courseid=F('eachcourseid__courseid'),
+#     begintime=F('eachcourseid__begintime')
+# )
+# #
+# #
+# for signmsg in signmsgs:
+#     print(signmsg.courseid, signmsg.begintime)
+def testRegister():
+    url='http://127.0.0.1:8000/register/'
+    response = requests.post(url, json={
+        "Authentication": 1,
+        "password": "1",
+        "username": "h",
+        "usernumber": "1234",
+        "class_field": "1",
+        "academy": "bdi"
+    })
+    print(response.status_code)
+    print(response.json())
+def getStudentSignInInfo():
+    url = 'http://127.0.0.1:8000/student/getStudentSignin/'
+    token='c2b914c6f833114fc5bcb1924f3cd018833b45a9'
+    courseid='000001'
+    headers = {
+        'Authorization': f'Token {token}',
+    }
+    params = {
+        'courseid': courseid,
+    }
+    response = requests.get(url, headers=headers,params=params)
+    print(response.status_code)
+    print(response.json())
+getStudentSignInInfo()
