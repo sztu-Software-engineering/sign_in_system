@@ -1,0 +1,22 @@
+/* 水平间距 */
+/* 水平间距 */
+.List {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.courseList {
+  height: 100rpx;
+  width: 80%;
+  margin: 20rpx;
+  border: 1px solid #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+.title {
+  font-size: 40rpx;
+  margin-bottom: 40rpx;
+}

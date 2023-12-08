@@ -1,0 +1,80 @@
+
+.layout {
+		display: flex;
+		align-items: center;
+		height: 100vh;
+		flex-direction: column;
+}
+.login-form {
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		border-radius: 40rpx;
+		margin-top: 20vh;
+		width: 80%;
+		max-width: 400px;
+		border: 1rpx solid #000;
+		padding: 20rpx 20rpx 40rpx 20rpx;
+}
+.enroll-form {
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		border-radius: 40rpx;
+		margin-top: 16vh;
+		width: 80%;
+		max-width: 400px;
+		border: 1rpx solid #000;
+		padding: 20rpx 20rpx 40rpx 20rpx;
+}
+.title {
+		font-size: 60rpx;
+}
+.username {
+		margin-top: 35rpx;
+		height: 100rpx;
+		display: flex;
+}
+.usernumber {
+		margin-top: 35rpx;
+		height: 100rpx;
+		display: flex;
+}
+.password {
+		margin-top: 20rpx;
+		height: 100rpx;
+		display: flex;
+}
+.repassword {
+		margin-top: 20rpx;
+		height: 100rpx;
+		display: flex;
+}
+.login-form input {
+		padding-top: 20rpx;
+		margin-left: 20rpx;
+		width: 32vh;
+}
+.enroll-form input {
+		padding-top: 20rpx;
+		margin-left: 20rpx;
+		width: 32vh;
+}
+.button {
+		width: 80%;
+		height: 100rpx;
+		background-color: #007aff;
+		color: #fff;
+		margin-top: 40rpx;
+}
+.submit {
+		font-size: 40rpx
+}
+.goEnroll {
+		font-size: 25rpx;
+		color: darkgreen;
+		margin-top: 15rpx;
+}
+.input {
+		border-bottom: 1px solid #000;
+}

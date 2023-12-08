@@ -1,0 +1,1 @@
+<view><course-list wx:if="{{a}}" bindupdateIsFlag="{{b}}" u-i="7c359182-0" bind:__l="__l" u-p="{{c}}"></course-list><show-t-history-list wx:else bindupdateIsFlag="{{d}}" u-i="7c359182-1" bind:__l="__l" u-p="{{e||''}}"></show-t-history-list></view>

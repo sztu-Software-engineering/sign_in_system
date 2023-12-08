@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "course-list": "../../components/courseList/courseList",
+    "hand-sign": "../../components/handSign/handSign"
+  }
+}

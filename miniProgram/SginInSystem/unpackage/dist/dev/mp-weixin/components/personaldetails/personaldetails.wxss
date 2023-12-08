@@ -1,0 +1,65 @@
+/* 水平间距 */
+/* 水平间距 */
+.input-dialog {
+  position: fixed;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 450rpx;
+  width: 600rpx;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  border-radius: 30px;
+}
+.dialogTitle {
+  margin: 0rpx 0 0 160rpx;
+  font-size: 50rpx;
+  font-weight: bold;
+}
+.addCourse {
+  margin: 120rpx 30rpx 20rpx 40rpx;
+  font-size: 40rpx;
+  border-bottom: 1rpx solid #666;
+}
+.dialogButton {
+  margin-top: 80rpx;
+  display: flex;
+}
+.dialogButton button {
+  width: 230rpx;
+  color: white;
+  background-color: royalblue;
+}
+.card {
+  width: 80%;
+  margin: 20px auto;
+  padding: 15px;
+}
+.content-container {
+  display: flex;
+  flex-direction: row;
+  /* 让子元素在容器中垂直排列 */
+}
+.avatar {
+  width: 120px;
+  height: 100px;
+  border-radius: 50%;
+}
+.info-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.avatar-container {
+  margin-left: 150rpx;
+}
+.name {
+  margin-top: 50rpx;
+  font-size: 22px;
+  font-weight: bold;
+}
+.number {
+  margin-top: 20rpx;
+  font-size: 16px;
+  color: #666;
+}

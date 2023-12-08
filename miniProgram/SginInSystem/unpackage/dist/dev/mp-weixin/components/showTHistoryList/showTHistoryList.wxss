@@ -1,0 +1,39 @@
+/* 水平间距 */
+/* 水平间距 */
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 60rpx;
+  font-weight: bold;
+}
+.name {
+  font-size: 50rpx;
+  margin: 20rpx;
+  color: brown;
+}
+.historyList {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.Recording {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: 40rpx;
+  margin-top: 30rpx;
+  border: 1px solid gray;
+}
+.time {
+  font-size: 55rpx;
+}
+.already {
+  margin-right: 35rpx;
+  color: green;
+}
+.without {
+  color: red;
+}

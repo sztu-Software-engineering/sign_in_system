@@ -1,0 +1,70 @@
+/* 水平间距 */
+/* 水平间距 */
+.code-tip-one {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 650rpx;
+  height: 250rpx;
+  line-height: 100rpx;
+  font-size: 60rpx;
+  font-weight: bold;
+  color: #313131;
+}
+.code-test {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.code-tip {
+  width: 650rpx;
+  height: 100rpx;
+  line-height: 50rpx;
+  font-size: 30rpx;
+  font-weight: normal;
+  color: #8a8a8a;
+}
+.code-errow {
+  width: 650rpx;
+  height: 50rpx;
+  font-size: 28rpx;
+  font-weight: normal;
+  color: #ff0000;
+}
+.code-tip > text {
+  padding: 0 20rpx;
+  width: 650rpx;
+  font-size: 30rpx;
+  font-weight: normal;
+  color: #ff5500;
+}
+.code-input {
+  margin: auto;
+  width: 650rpx;
+  height: 100rpx;
+  display: flex;
+}
+.code-input > view {
+  margin-top: 5rpx;
+  margin-left: 15rpx;
+  width: 86rpx;
+  height: 86rpx;
+  line-height: 86rpx;
+  font-size: 60rpx;
+  font-weight: bold;
+  color: #313131;
+  text-align: center;
+  border-radius: 10rpx;
+}
+.code-input > view:nth-child(1) {
+  margin-left: 0rpx;
+}
+.cinput {
+  position: fixed;
+  left: -100rpx;
+  width: 50rpx;
+  height: 50rpx;
+}

@@ -1,0 +1,64 @@
+{
+	"pages": [{
+			"path": "pages/sign/sign",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/my/my",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/signHistory/signHistory",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path" : "pages/login/login",
+			"style" : 
+			{
+				"navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8",
+		"app-plus": {
+			"background": "#efeff4"
+		}
+	},
+	"tabBar": {
+		"selectedColor": "#1296db",
+		"list": [{
+				"pagePath": "pages/sign/sign",
+				"text": "签到",
+				"iconPath": "static/sign1.png",
+				"selectedIconPath": "static/sign2.png"
+			},
+			{
+				"pagePath": "pages/signHistory/signHistory",
+				"text": "签到记录",
+				"iconPath": "static/history1.png",
+				"selectedIconPath": "static/history2.png"
+			},
+			{
+				"pagePath": "pages/my/my",
+				"text": "个人",
+				"iconPath": "static/my1.png",
+				"selectedIconPath": "static/my2.png"
+			}
+		]
+	}
+
+}

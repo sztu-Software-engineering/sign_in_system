@@ -1,0 +1,1 @@
+<view class="List"><view class="title">您的课程</view><view wx:for="{{a}}" wx:for-item="course" wx:key="b" class="courseList" style="{{'background-color:' + b}}" bindtap="{{course.c}}"><text class="courseText">{{course.a}}</text></view></view>

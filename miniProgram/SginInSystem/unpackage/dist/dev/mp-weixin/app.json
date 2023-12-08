@@ -1,0 +1,38 @@
+{
+  "pages": [
+    "pages/sign/sign",
+    "pages/my/my",
+    "pages/signHistory/signHistory",
+    "pages/login/login"
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "selectedColor": "#1296db",
+    "list": [
+      {
+        "pagePath": "pages/sign/sign",
+        "text": "签到",
+        "iconPath": "static/sign1.png",
+        "selectedIconPath": "static/sign2.png"
+      },
+      {
+        "pagePath": "pages/signHistory/signHistory",
+        "text": "签到记录",
+        "iconPath": "static/history1.png",
+        "selectedIconPath": "static/history2.png"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "个人",
+        "iconPath": "static/my1.png",
+        "selectedIconPath": "static/my2.png"
+      }
+    ]
+  },
+  "usingComponents": {}
+}

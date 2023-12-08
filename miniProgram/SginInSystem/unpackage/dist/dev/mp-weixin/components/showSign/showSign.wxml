@@ -1,0 +1,1 @@
+<uni-icons wx:if="{{b}}" bindclick="{{a}}" u-i="0670371b-0" bind:__l="__l" u-p="{{b}}"></uni-icons><view class="showCaptcha"><view class="title">本次的验证码为：</view><text class="captcha">{{c}}</text></view><view class="text"><text class="already">已签到：{{d}}</text><text class="without">未签到：{{e}}</text></view>
