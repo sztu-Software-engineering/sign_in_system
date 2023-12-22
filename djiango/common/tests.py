@@ -15,10 +15,10 @@ def testGetCourse():
 def testLogin():
     url = "http://127.0.0.1:8000/login/"
     response = requests.post(url, json={
-        "Authentication": 0,
+        "Authentication": 1,
         "password": "1",
-        "username": "hsk",
-        "usernumber": "123456"
+        "username": "h",
+        "usernumber": "1234"
     })
     print(response.status_code)
     print(response.json())# If you expect a JSON response
@@ -48,10 +48,10 @@ def testLogout():
 def testRegister():
     url='http://127.0.0.1:8000/register/'
     response = requests.post(url, json={
-        "Authentication": 1,
+        "Authentication": 0,
         "password": "1",
-        "username": "h",
-        "usernumber": "1234",
+        "username": "hhh",
+        "usernumber": "123457",
         "class_field": "1",
         "academy": "bdi"
     })
@@ -70,4 +70,3 @@ def getStudentSignInInfo():
     response = requests.get(url, headers=headers,params=params)
     print(response.status_code)
     print(response.json())
-getStudentSignInInfo()

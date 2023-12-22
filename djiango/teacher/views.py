@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from common.models import *
-from serializers import *
+from teacher.serializers import *
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -32,6 +32,23 @@ class teacherRegisterEachCourse(APIView):
                 return Response({'status': ' success','signincode':signin_code,'eachcourseid':eachcourse_id})
             return Response({'status': ' fail'})
         return Response({'status': ' fail'})
-
-
+class teacherGetSigninData(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    def get(self, request):
+        eachcourseid = request.GET.get('eachCourseId')
+        if Signmsg.objects.filter(eachcourseid=eachcourseid).exists():
+            ##找到eachcourseid相同的学生id
+            signmsgs=Signmsg.objects.filter(eachcourseid=eachcourseid)
+            student_data=[]
+            for signmsg in signmsgs:
+                student=Student.objects.get(studentid=signmsg.studentid)
+                student_data.append({
+                    'studentid':student.studentid,
+                    'studentname':student.name,
+                    'signinway':signmsg.signinway
+                })
+            return Response({'status': 'fail','student_count': len(student_data),'students_data':student_data})
+        else:
+            return Response({'status': 'fail'})
 # Create your views here.

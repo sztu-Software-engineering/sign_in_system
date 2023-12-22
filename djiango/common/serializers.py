@@ -70,10 +70,7 @@ class LoginSerializer(serializers.Serializer):
         else:
             return serializers.ValidationError("Incorrect password")
 
-class CourseListSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Course
-        fields = ['courseName', 'courseid']
+
 
 
 

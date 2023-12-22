@@ -27,4 +27,5 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')), # 用户登录页面
     path('logout/',LogoutView.as_view(),name='logout'),
     path('student/',include(('student.urls','student'),namespace='student')),
+    path('teacher/',include(('teacher.urls','teacher'),namespace='teacher')),
     ]
