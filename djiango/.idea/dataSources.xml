@@ -17,5 +17,22 @@
       <jdbc-url>jdbc:mysql://127.0.0.1:3306/signdb1</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="@47.120.52.230" uuid="5a370aab-240c-4030-a539-f6b6c81c9121">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://47.120.52.230:3306/</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="@47.120.52.230 [2]" uuid="0d5ff724-2457-45d9-8305-cd6c63348ce3">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://47.120.52.230:3306/?useSSL=no</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+      <driver-properties>
+        <property name="useSSL" value="NO" />
+      </driver-properties>
+    </data-source>
   </component>
 </project>

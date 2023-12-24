@@ -8,6 +8,7 @@ from rest_framework import status
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 import random
+from datetime import datetime, timezone
 """
     教师发起签到
     返回值：satus:success/fail，签到码：signincode
@@ -15,6 +16,19 @@ import random
 class teacherRegisterEachCourse(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
+    def get(self, request):
+        try:
+            courseid = request.GET.get('classnumber')
+            limitTime = request.GET.get('limitTime')
+        except:
+            return Response({'status': ' fail'})
+        if Course.objects.filter(courseid=courseid).exists():
+            courseid=Course.objects.get(courseid=courseid)
+            teacherid = request.user.username
+            beginTime = datetime.now(timezone.utc)
+            if Teacher.objects.filter(teachernum=teacherid).exists():
+                return Response(serializer.data)
+        return Response({'status': ' fail'})
     def post(self, request):
         serializer = teacherRegisterEachCourseSerializer(data=request.data)
         if serializer.is_valid():

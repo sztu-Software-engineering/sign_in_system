@@ -65,7 +65,7 @@ class Signinmsg(models.Model):
     signinnum = models.IntegerField(db_column='SignInNum')  # Field name made lowercase.
     begintime = models.DateTimeField(db_column='BeginTime', blank=True, null=True)  # Field name made lowercase.
     signIncode=models.CharField(db_column='SignInCode',max_length=5)
-
+    limitTime=models.IntegerField(db_column='LimitTime')
     class Meta:
         managed = True
         db_table = 'signInMsg'

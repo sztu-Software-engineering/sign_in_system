@@ -7,20 +7,22 @@ from .models import Student, Teacher,Course
 from rest_framework.authtoken.models import Token
 class RegistrationSerializer(serializers.Serializer):
     Authentication=serializers.IntegerField()
-    class_field=serializers.CharField()
+    course=serializers.CharField()
     password=serializers.CharField()
     username=serializers.CharField()
     usernumber=serializers.CharField()
     academy=serializers.CharField()
     def validate_usernumber(self, value):
         # 在这里检查 usernumber 是否在 User 模型中存在
+        print(value)
         if User.objects.filter(username=value).exists():
 
             raise serializers.ValidationError("User with this usernumber does not exist")
         return value
     def create(self, validated_data):
+        print(validated_data)
         Authentication=validated_data['Authentication']
-        class_field=validated_data['class_field']
+        class_field=validated_data['course']
         password=validated_data['password']
         username=validated_data['username']
         usernumber=validated_data['usernumber']

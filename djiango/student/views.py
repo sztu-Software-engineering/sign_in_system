@@ -1,3 +1,5 @@
+from datetime import datetime, timezone
+
 from django.shortcuts import render
 from django.shortcuts import render
 from rest_framework.views import APIView
@@ -28,18 +30,22 @@ class studentSignup(APIView):
         serializer = studentSignupSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            courseid=serializer.validated_data['courseid']
-            state=serializer.validated_data['state']
-            signinway=serializer.validated_data['signinway']
+            courseid=serializer.validated_data['classnumber']
+            code=serializer.validated_data['code']
             user=request.user
 
-            if Course.objects.filter(courseid=courseid).exists() and Student.objects.filter(studentid=user.username).exists() and state==1:
+            if Course.objects.filter(courseid=courseid).exists() and Student.objects.filter(studentid=user.username).exists() :
                 eachcourseid = Signinmsg.objects.filter(courseid=courseid).aggregate(Max('eachcourseid'))['eachcourseid__max']
                 print(eachcourseid)
+
                 signInallTable=Signinmsg.objects.get(eachcourseid=eachcourseid)
+                now = datetime.now(timezone.utc)
+                if (now - signInallTable.begintime).seconds < signInallTable.limitTime:
+                    return Response({'status': ' fail'})
+
                 signInallTable.signinnum+=1
                 signInallTable.save()
-                Signmsg.objects.create(eachcourseid=eachcourseid,studentid=user.username,signinway=signinway)
+                Signmsg.objects.create(eachcourseid=eachcourseid,studentid=user.username,signinway=1)
 
                 return Response({'status': ' success'})
         return Response({'status': ' fail'})

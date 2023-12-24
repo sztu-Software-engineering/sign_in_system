@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-&v!x-t0c-vgou8_qfyv2gjv*nbh5y21zyv*2_qhd%uvjm**9f!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -41,7 +41,12 @@ INSTALLED_APPS = [
     "common",
     "student",
     "teacher",
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    'werkzeug_debugger_runserver',
+    'django_extensions',
+
+
+
 ]
 
 MIDDLEWARE = [
@@ -52,6 +57,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'django.middleware.security.SecurityMiddleware',
 ]
 
 ROOT_URLCONF = "djiango.urls"
@@ -82,7 +88,7 @@ WSGI_APPLICATION = "djiango.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'signdb1',
+        'NAME': 'sign',
         'USER': 'root',
         'PASSWORD': '12345678',
         'HOST': 'localhost',
@@ -143,3 +149,16 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     )
 }
+# SECURITY安全设置 - 支持http时建议开启
+# SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")   # 推荐
+# SECURE_SSL_REDIRECT = True # 将所有非SSL请求永久重定向到SSL
+# SESSION_COOKIE_SECURE = False # 仅通过https传输cookie
+# CSRF_COOKIE_SECURE = False # 仅通过https传输cookie
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = True # 严格要求使用https协议传输
+# SECURE_HSTS_PRELOAD = True # HSTS为
+# SECURE_HSTS_SECONDS = 60
+# SECURE_CONTENT_TYPE_NOSNIFF = True # 防止浏览器猜测资产的内容类型
+
+SECURE_SSL_REDIRECT = False
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False

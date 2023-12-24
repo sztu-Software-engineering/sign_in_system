@@ -20,8 +20,8 @@ from rest_framework.authtoken import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("login/", LoginView.as_view(), name="login"),
-    path('register/', RegistrationView.as_view(), name='register'),
+    path("login", LoginView.as_view(), name="login"),
+    path('register', RegistrationView.as_view(), name='register'),
     path("chooseCourseList/", ChooseCourseListView.as_view(), name="choose_course"),
     path("api-token-auth/", views.obtain_auth_token, name="api-token-auth"),
     path('api-auth/', include('rest_framework.urls')), # 用户登录页面

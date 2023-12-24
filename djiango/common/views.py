@@ -21,21 +21,27 @@ from .serializers import *
 class RegistrationView(APIView):
     def post(self, request):
         authentication_type = request.data.get('Authentication')
+        print(request.data)
         serializer = RegistrationSerializer(data=request.data)
+        if User.objects.filter(username=request.data.get('usernumber')).exists():
+            print("exist")
+            return Response({'status': ' exist'})
         if serializer.is_valid():
             serializer.save()
             return Response({'status': ' success'})
         return Response({'status': ' fail'})
 class LoginView(APIView):
     def post(self, request):
+
         serializer=LoginSerializer(data=request.data)
+        print(serializer)
         if serializer.is_valid():
             user=serializer.save()
             if user:
                 # login(request,user)
                 token, created = Token.objects.get_or_create(user=user)
                 print(token.key)
-                return Response({'status': ' success'})
+                return Response({'status': ' success','token':token.key})
         return Response({'status': ' fail'})
 
 class ChooseCourseListView(APIView):

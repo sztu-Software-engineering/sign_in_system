@@ -13,14 +13,15 @@ def testGetCourse():
     print(response.status_code)
     print(response.json())  # If you expect a JSON response
 def testLogin():
-    url = "http://127.0.0.1:8000/login/"
+    url = "http://47.120.52.230:8000/login"
     response = requests.post(url, json={
         "Authentication": 1,
-        "password": "1",
-        "username": "h",
-        "usernumber": "1234"
+        "password": "1111",
+        "username": "123431",
+        "usernumber": "123431"
     })
     print(response.status_code)
+    print(response.headers)
     print(response.json())# If you expect a JSON response
 def testLogout():
     url = 'http://127.0.0.1:8000/logout/'
@@ -46,12 +47,12 @@ def testLogout():
 # for signmsg in signmsgs:
 #     print(signmsg.courseid, signmsg.begintime)
 def testRegister():
-    url='http://127.0.0.1:8000/register/'
+    url='http://47.120.52.230:8000/register'
     response = requests.post(url, json={
         "Authentication": 0,
-        "password": "1",
-        "username": "hhh",
-        "usernumber": "123457",
+        "password": "1111",
+        "username": "fffff",
+        "usernumber": "123431",
         "class_field": "1",
         "academy": "bdi"
     })
@@ -70,3 +71,4 @@ def getStudentSignInInfo():
     response = requests.get(url, headers=headers,params=params)
     print(response.status_code)
     print(response.json())
+testLogin()
