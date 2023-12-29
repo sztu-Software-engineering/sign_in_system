@@ -27,9 +27,10 @@ class studentSignup(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
     def post(self, request):
+        print(request.data)
         serializer = studentSignupSerializer(data=request.data)
+
         if serializer.is_valid():
-            serializer.save()
             courseid=serializer.validated_data['classnumber']
             code=serializer.validated_data['code']
             user=request.user
@@ -37,18 +38,23 @@ class studentSignup(APIView):
             if Course.objects.filter(courseid=courseid).exists() and Student.objects.filter(studentid=user.username).exists() :
                 eachcourseid = Signinmsg.objects.filter(courseid=courseid).aggregate(Max('eachcourseid'))['eachcourseid__max']
                 print(eachcourseid)
-
                 signInallTable=Signinmsg.objects.get(eachcourseid=eachcourseid)
+                if(Signmsg.objects.get(eachcourseid=eachcourseid,studentid=user.username).signinway!='0'):
+                    print(Signmsg.objects.get(eachcourseid=eachcourseid,studentid=user.username).signinway)
+                    return Response({'status': 'fail','message':'已经签到过了'})
                 now = datetime.now(timezone.utc)
-                if (now - signInallTable.begintime).seconds < signInallTable.limitTime:
-                    return Response({'status': ' fail'})
-
+                print((now - signInallTable.begintime).seconds)
+                if (now - signInallTable.begintime).seconds > signInallTable.limitTime:
+                    return Response({'status': 'fail','message':'签到超时'})
+                if signInallTable.signIncode!=code:
+                    return Response({'status': 'fail','message':'签到码错误'})
                 signInallTable.signinnum+=1
                 signInallTable.save()
-                Signmsg.objects.create(eachcourseid=eachcourseid,studentid=user.username,signinway=1)
-
-                return Response({'status': ' success'})
-        return Response({'status': ' fail'})
+                ChangeSignmsg=Signmsg.objects.get(eachcourseid=eachcourseid,studentid=user.username)
+                ChangeSignmsg.signinway=1
+                ChangeSignmsg.save()
+                return Response({'status': 'success','message':'签到成功'})
+        return Response({'status': 'fail'})
     def get(self, request):
         courseid = request.GET.get('courseid')
         if Signinmsg.objects.filter(courseid=courseid).exists():
@@ -63,18 +69,25 @@ class getStudentSignin(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
     def get(self, request):
-        courseid = request.GET.get('courseid')
+        coursename = request.GET.get('classname')
         studentId=request.user.username
-        if Signmsg.objects.filter(eachcourseid__courseid=courseid,studentid=studentId).exists():
-            signmsgs = Signmsg.objects.filter(eachcourseid__courseid=courseid,studentid=studentId).annotate(
-                courseid=F('eachcourseid__courseid'),
-                begintime=F('eachcourseid__begintime')
-            )
-            data = [StudentSignInInfoSerializer({
-                'time': signmsg.begintime,
-                'state': 1
-            }).data for signmsg in signmsgs]
-            return Response({'status': 'success','data':data})
+        if Course.objects.filter(courseName=coursename).exists():
+            courseid=Course.objects.get(courseName=coursename).courseid
+            if Signmsg.objects.filter(eachcourseid__courseid=courseid,studentid=studentId).exists():
+                signmsgs = Signmsg.objects.filter(eachcourseid__courseid=courseid,studentid=studentId).annotate(
+                    courseid=F('eachcourseid__courseid'),
+                    begintime=F('eachcourseid__begintime')
+                )
+
+                data = [StudentSignInInfoSerializer({
+                    'time': signmsg.begintime.strftime("%Y.%m.%d %H:%M:%S"),
+                    'state': signmsg.signinway,
+                }).data for signmsg in signmsgs]
+                return Response(data)
+            else:
+                return Response({'status': 'fail'})
+
+        return Response({'status': 'fail'})
 
 
 

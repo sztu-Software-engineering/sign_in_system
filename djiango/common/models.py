@@ -9,13 +9,13 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Choosecoursemsg(models.Model):
-    courseid = models.OneToOneField('Course', models.DO_NOTHING, db_column='CourseID', primary_key=True)  # Field name made lowercase.
-    studentid = models.ForeignKey('Student', models.DO_NOTHING, db_column='StudentID',related_name='chosen_courses')  # Field name made lowercase.
+    id = models.AutoField(primary_key=True)
+    courseid = models.ForeignKey('Course', models.DO_NOTHING, db_column='CourseID',primary_key=False)  # Field name made lowercase.
+    studentid = models.ForeignKey('Student', models.DO_NOTHING, db_column='StudentID',primary_key=False)  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'ChooseCourseMsg'
-        unique_together = (('courseid', 'studentid'),)
 
 
 class Course(models.Model):
@@ -64,7 +64,7 @@ class Signinmsg(models.Model):
     eachcourseid = models.CharField(db_column='EachCourseID', primary_key=True, max_length=10)  # Field name made lowercase.
     signinnum = models.IntegerField(db_column='SignInNum')  # Field name made lowercase.
     begintime = models.DateTimeField(db_column='BeginTime', blank=True, null=True)  # Field name made lowercase.
-    signIncode=models.CharField(db_column='SignInCode',max_length=5)
+    signIncode=models.CharField(db_column='SignInCode',max_length=8)
     limitTime=models.IntegerField(db_column='LimitTime')
     class Meta:
         managed = True

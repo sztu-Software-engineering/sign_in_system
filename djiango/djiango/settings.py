@@ -42,8 +42,8 @@ INSTALLED_APPS = [
     "student",
     "teacher",
     'rest_framework.authtoken',
-    'werkzeug_debugger_runserver',
-    'django_extensions',
+    # 'werkzeug_debugger_runserver',
+    # 'django_extensions',
 
 
 

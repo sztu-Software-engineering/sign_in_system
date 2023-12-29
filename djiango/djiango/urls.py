@@ -15,17 +15,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from common.views import RegistrationView,LoginView,ChooseCourseListView,LogoutView
+from common.views import RegistrationView,LoginView,ChooseCourseListView,LogoutView,addCourse,getCourseList
 from rest_framework.authtoken import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("login", LoginView.as_view(), name="login"),
     path('register', RegistrationView.as_view(), name='register'),
+    path('addCourse',addCourse.as_view(),name='addCourse'),
+    path('getCourseList',getCourseList.as_view(),name='getCourseList'),
     path("chooseCourseList/", ChooseCourseListView.as_view(), name="choose_course"),
     path("api-token-auth/", views.obtain_auth_token, name="api-token-auth"),
     path('api-auth/', include('rest_framework.urls')), # 用户登录页面
     path('logout/',LogoutView.as_view(),name='logout'),
     path('student/',include(('student.urls','student'),namespace='student')),
     path('teacher/',include(('teacher.urls','teacher'),namespace='teacher')),
+
     ]

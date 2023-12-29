@@ -15,10 +15,10 @@ def testGetCourse():
 def testLogin():
     url = "http://47.120.52.230:8000/login"
     response = requests.post(url, json={
-        "Authentication": 1,
+        "Authentication": 0,
         "password": "1111",
-        "username": "123431",
-        "usernumber": "123431"
+        "username": "hsk",
+        "usernumber": "202200202000"
     })
     print(response.status_code)
     print(response.headers)
@@ -51,16 +51,16 @@ def testRegister():
     response = requests.post(url, json={
         "Authentication": 0,
         "password": "1111",
-        "username": "fffff",
-        "usernumber": "123431",
-        "class_field": "1",
+        "username": "xjp",
+        "usernumber": "202200202002",
+        "course": "1",
         "academy": "bdi"
     })
     print(response.status_code)
     print(response.json())
 def getStudentSignInInfo():
     url = 'http://127.0.0.1:8000/student/getStudentSignin/'
-    token='c2b914c6f833114fc5bcb1924f3cd018833b45a9'
+    token='8f643bf7faaf513577f36fdeb321bc4697659d58'
     courseid='000001'
     headers = {
         'Authorization': f'Token {token}',
@@ -71,4 +71,36 @@ def getStudentSignInInfo():
     response = requests.get(url, headers=headers,params=params)
     print(response.status_code)
     print(response.json())
+def testTeacherAddCourse():
+    url = 'http://47.120.52.230:8000/addCourse'
+    token ='0af07b4721908ffc01c0478f30878fe700d4d231'
+    headers = {
+        'Authorization': f'Token {token}',
+    }
+    print(headers)
+    response = requests.post(url, headers=headers,json={
+        "classnumber": "000001",
+        "classname": "数据结构",
+    })
+    print(response.json())
+def testStudentAddCourse():
+    url = 'http://47.120.52.230:8000/addCourse'
+    token ='7def3176351267f6ff4564792233a04606a2523c'
+    headers = {
+        'Authorization': f'Token {token}',
+    }
+    response = requests.post(url, headers=headers,json={
+        "classnumber": "000005",
+    })
+    print(response.json())
+def testGetCourse():
+    url = 'http://47.120.52.230:8000/getCourseList'
+    token = 'd07b14c46f80949466e389b6e818d95818b592e3'
+    headers = {
+        'Authorization': f'Token {token}',
+    }
+
+    response = requests.get(url, headers=headers)
+    print(response.json())
 testLogin()
+
