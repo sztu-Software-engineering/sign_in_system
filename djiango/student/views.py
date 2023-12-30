@@ -20,12 +20,16 @@ from .serializers import *
 from common.models import *
 from django.db.models import Max
 from django.db.models import F
+from silk.profiling.profiler import silk_profile
 from collections import defaultdict
 # Create your views here.
 #学生签到
 class studentSignup(APIView):
+
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
+
+    @silk_profile()
     def post(self, request):
         print(request.data)
         serializer = studentSignupSerializer(data=request.data)
@@ -40,10 +44,10 @@ class studentSignup(APIView):
                 print(eachcourseid)
                 signInallTable=Signinmsg.objects.get(eachcourseid=eachcourseid)
                 if(Signmsg.objects.get(eachcourseid=eachcourseid,studentid=user.username).signinway!='0'):
-                    print(Signmsg.objects.get(eachcourseid=eachcourseid,studentid=user.username).signinway)
+                    # print(Signmsg.objects.get(eachcourseid=eachcourseid,studentid=user.username).signinway)
                     return Response({'status': 'fail','message':'已经签到过了'})
                 now = datetime.now(timezone.utc)
-                print((now - signInallTable.begintime).seconds)
+                # print((now - signInallTable.begintime).seconds)
                 if (now - signInallTable.begintime).seconds > signInallTable.limitTime:
                     return Response({'status': 'fail','message':'签到超时'})
                 if signInallTable.signIncode!=code:
@@ -66,8 +70,11 @@ class studentSignup(APIView):
         return Response({'status': 'fail'})
 """给定courseid返回该学生的所有签到信息"""
 class getStudentSignin(APIView):
+
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
+
+    @silk_profile()
     def get(self, request):
         coursename = request.GET.get('classname')
         studentId=request.user.username

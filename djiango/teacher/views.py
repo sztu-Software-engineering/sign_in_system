@@ -15,13 +15,17 @@ from django.db.models import F
 from django.http import FileResponse
 import qrcode
 import io
+from silk.profiling.profiler import silk_profile
 """
     教师发起签到
     返回值：satus:success/fail，签到码：signincode
 """
 class teacherRegisterEachCourse(APIView):
+
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
+
+    @silk_profile()
     def get(self, request):
         try:
             courseid = request.GET.get('classnumber')
@@ -38,13 +42,12 @@ class teacherRegisterEachCourse(APIView):
                 checkIfOverTime = Signinmsg.objects.get(eachcourseid=(courseid+str(record_count).zfill(3)))
                 now = datetime.now(timezone.utc)
                 if (now - checkIfOverTime.begintime).seconds < checkIfOverTime.limitTime:
-
-
                     return Response({'status': 'success', 'code': checkIfOverTime.signIncode})
 
-
+            if(record_count>=999):
+                return Response({'status': 'fail'})
             each = str(record_count + 1).zfill(3)
-            print(courseid + each)
+            # print(courseid + each)
             signin_code = random.randint(100000, 999999)
             eachcourse_id = courseid + each
             current_time = datetime.now()
@@ -66,7 +69,7 @@ class teacherRegisterEachCourse(APIView):
             if Teacher.objects.filter(teachernum=teacherid).exists() and Course.objects.filter(courseid=courseid).exists():
                 record_count = Signinmsg.objects.filter(courseid=courseid).count()
                 each=str(record_count+1).zfill(3)
-                print(courseid+each)
+                # print(courseid+each)
                 signin_code = random.randint(1000, 9999)
                 eachcourse_id=courseid+each
                 Signinmsg.objects.create(courseid=courseid,eachcourseid=eachcourse_id,signinnum=0,begintime=beginTime,signIncode=signin_code)
@@ -76,6 +79,8 @@ class teacherRegisterEachCourse(APIView):
 class GetAllSigninData(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
+
+    @silk_profile()
     def get(self, request):
         courseid=request.GET.get('classnumber')
         if Signinmsg.objects.filter(courseid=courseid).exists():
@@ -94,6 +99,8 @@ class GetAllSigninData(APIView):
 class getSignInNumber(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
+
+    @silk_profile()
     def get(self, request):
         courseid=request.GET.get('classnumber')
         if Signinmsg.objects.filter(courseid=courseid).exists():
@@ -114,6 +121,8 @@ class getSignInNumber(APIView):
 class getQRCode(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
+
+    @silk_profile()
     def get(self, request):
         try:
             courseid = request.GET.get('classnumber')
@@ -140,7 +149,7 @@ class getQRCode(APIView):
                     return response
 
             each = str(record_count + 1).zfill(3)
-            print(courseid + each)
+            # print(courseid + each)
             signin_code = random.randint(100000, 999999)
             eachcourse_id = courseid + each
             current_time = datetime.now()
@@ -148,10 +157,11 @@ class getQRCode(APIView):
             # 所有一选这节课的学生全部标记为未签到
             Choosecourses = Choosecoursemsg.objects.filter(courseid=courseid)
             for choosecourse in Choosecourses:
+
                 Signmsg.objects.create(eachcourseid=Signinmsg.objects.get(eachcourseid=eachcourse_id), studentid=choosecourse.studentid, signinway=0)
 
             signin_code_str = str(signin_code)
-            print(signin_code_str)
+            # print(signin_code_str)
             img = qrcode.make(signin_code_str)  # 传入网址计算出二维码图片字节数据
             buf = io.BytesIO()  # 创建一个BytesIO临时保存生成图片数据
             img.save(buf)  # 将图片字节数据放到BytesIO临时保存

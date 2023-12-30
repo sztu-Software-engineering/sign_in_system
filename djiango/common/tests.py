@@ -102,5 +102,17 @@ def testGetCourse():
 
     response = requests.get(url, headers=headers)
     print(response.json())
+def Registerbaolitest():
+    url='http://47.120.52.230:8000/register'
+    response = requests.post(url, json={
+        "Authentication": 0,
+        "password": "1111",
+        "username": "xjp",
+        "usernumber": "202200202002",
+        "course": "1",
+        "academy": "bdi"
+    })
+    print(response.status_code)
+    print(response.json())
 testLogin()
 

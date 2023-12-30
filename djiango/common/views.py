@@ -17,30 +17,30 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
 from .serializers import *
-
+from silk.profiling.profiler import silk_profile
 class RegistrationView(APIView):
+    @silk_profile()
     def post(self, request):
         authentication_type = request.data.get('Authentication')
-        print(request.data)
         serializer = RegistrationSerializer(data=request.data)
         if User.objects.filter(username=request.data.get('usernumber')).exists():
-            print("exist")
+
             return Response({'status': 'exist'})
         if serializer.is_valid():
             serializer.save()
             return Response({'status': 'success'})
         return Response({'status': 'fail'})
 class LoginView(APIView):
+    @silk_profile()
     def post(self, request):
 
         serializer=LoginSerializer(data=request.data)
-        print(serializer)
         if serializer.is_valid():
             user=serializer.save()
             if user:
                 # login(request,user)
                 token, created = Token.objects.get_or_create(user=user)
-                print(token.key)
+
                 if Student.objects.filter(studentid=user.username).exists():
                     student=Student.objects.get(studentid=user.username)
                     return Response({'status': 'success','token':token.key,"class_field":student.class_field,"academy":student.colleage})
@@ -51,8 +51,11 @@ class LoginView(APIView):
         return Response({'status': 'fail'})
 
 class ChooseCourseListView(APIView):
+
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
+
+    @silk_profile()
     def get(self,request):
         user=request.user
 
@@ -63,10 +66,10 @@ class ChooseCourseListView(APIView):
             courses = Course.objects.filter(courseid__in=course_ids)
 
             serializer = CourseListSerializer(courses, many=True)
-            print(serializer.data)
+            # print(serializer.data)
 
-            print(student.name)
-            print(serializer.data)
+            # print(student.name)
+            # print(serializer.data)
             return Response(serializer.data)
         if Teacher.objects.filter(teachernum=user.username).exists():
             teacher=Teacher.objects.get(teachernum=user.username)
@@ -82,6 +85,8 @@ class ChooseCourseListView(APIView):
 class LogoutView(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
+
+    @silk_profile()
     def post(self, request):
         # Delete the user's token to log them out
         request.user.is_active = False
@@ -92,8 +97,10 @@ class addCourse(APIView):
 
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
+
+    @silk_profile()
     def post(self, request):
-        print(request.headers)
+        # print(request.headers)
         courseid=request.data.get('classnumber')
 
         user=request.user
@@ -108,37 +115,40 @@ class addCourse(APIView):
             course.choosenum+=1
             course.save()
             studentCourse.save()
-            print(studentCourse)
+            # print(studentCourse)
             return Response({'status': 'success','message':'加入成功'})
         elif Teacher.objects.filter(teachernum=user.username).exists():
             if Course.objects.filter(courseid=courseid).exists():
                 return Response({'status': 'exist', 'message': '课程号已存在'})
             coursename=request.data.get('classname')
-            print(user.username)
+            # print(user.username)
             teacherCourse=Course.objects.create(courseid=courseid,teachernum=Teacher.objects.get(teachernum=user.username),choosenum=0,courseName=coursename)
             teacherCourse.save()
-            print(teacherCourse)
+            # print(teacherCourse)
             return Response({'status': 'success','message':'开设成功'})
 
         return Response({'status': 'fail'})
 class getCourseList(APIView):
+
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
+
+    @silk_profile()
     def get(self,request):
-        print(request.headers)
+        # print(request.headers)
         username=request.user.username
         if Student.objects.filter(studentid=username).exists():
             chosen_courses = Choosecoursemsg.objects.filter(studentid=username)
-            print(username)
+            # print(username)
             course_ids = [chosen_course.courseid.courseid for chosen_course in chosen_courses]
             print(course_ids)
             chosen_coursesName=Course.objects.filter(courseid__in=course_ids)
-            print(chosen_coursesName)
+            # print(chosen_coursesName)
             courseLists=[]
             courseList={}
 
             for course in chosen_coursesName:
-                print(course.courseName)
+                # print(course.courseName)
                 courseList={"classname": course.courseName,"classnumber": course.courseid}
                 courseLists.append(courseList)
 

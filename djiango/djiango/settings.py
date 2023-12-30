@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "student",
     "teacher",
     'rest_framework.authtoken',
+    'silk',
     # 'werkzeug_debugger_runserver',
     # 'django_extensions',
 
@@ -58,6 +59,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     'django.middleware.security.SecurityMiddleware',
+    'silk.middleware.SilkyMiddleware',
 ]
 
 ROOT_URLCONF = "djiango.urls"
@@ -158,7 +160,7 @@ REST_FRAMEWORK = {
 # SECURE_HSTS_PRELOAD = True # HSTS为
 # SECURE_HSTS_SECONDS = 60
 # SECURE_CONTENT_TYPE_NOSNIFF = True # 防止浏览器猜测资产的内容类型
-
+SILKY_PYTHON_PROFILER = True
 SECURE_SSL_REDIRECT = False
 SESSION_COOKIE_SECURE = False
 CSRF_COOKIE_SECURE = False

@@ -14,13 +14,13 @@ class RegistrationSerializer(serializers.Serializer):
     academy=serializers.CharField()
     def validate_usernumber(self, value):
         # 在这里检查 usernumber 是否在 User 模型中存在
-        print(value)
+
         if User.objects.filter(username=value).exists():
 
             raise serializers.ValidationError("User with this usernumber does not exist")
         return value
     def create(self, validated_data):
-        print(validated_data)
+
         Authentication=validated_data['Authentication']
         class_field=validated_data['course']
         password=validated_data['password']

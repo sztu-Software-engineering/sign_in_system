@@ -30,5 +30,6 @@ urlpatterns = [
     path('logout/',LogoutView.as_view(),name='logout'),
     path('student/',include(('student.urls','student'),namespace='student')),
     path('teacher/',include(('teacher.urls','teacher'),namespace='teacher')),
+    path('silk/', include('silk.urls', namespace='silk')),
 
     ]
